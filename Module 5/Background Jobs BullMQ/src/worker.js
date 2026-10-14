@@ -9,21 +9,17 @@ const worker = new Worker(
   'email',
   async (job) => {
     if (job.name === 'otp') {
-      const { email, otp } = job.data;
+      const { to, otp } = job.data;
 
       await transporter.sendMail({
-        to: email,
+        from: process.env.SMTP_USER,
+        to: to,
         subject: 'Email Verification OTP',
         text: `Your verification OTP is ${otp}. It expires in 10 minutes.`
       });
     }
   },
-  {
-    connection,
-    settings: {
-      backoffStrategy: (attemptsMade) => 1000 * Math.pow(2, attemptsMade - 1)
-    }
-  }
+  { connection }
 );
 
 worker.on('completed', (job) => {
