@@ -51,4 +51,3 @@ module.exports = {
   markVerified,
   _store: store
 };
-
