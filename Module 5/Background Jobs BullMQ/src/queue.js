@@ -20,3 +20,4 @@ const emailQueue = new Queue('email', {
 });
 
 module.exports = { emailQueue, connection };
+
